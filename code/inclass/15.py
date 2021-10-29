@@ -56,6 +56,8 @@ def sum_lists(a, b):
     for cnt, i in enumerate(a):
         output += i + b[cnt]
     return output
+res = sum_lists([-3, -2, -1], [1, 2, 3])
+res
 
 
 def sum_lists(a, b):
