@@ -1,6 +1,3 @@
-from os import EX_PROTOCOL
-
-
 def readlines(fname):
     try:
         with open(fname, 'r') as fpt:
@@ -9,42 +6,13 @@ def readlines(fname):
         return []
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def convert(data):
     for i in range(len(data)):
         try:
             data[i] = float(data[i])
         except ValueError:
             continue
+
 
 def csv_lst(fname):
     l = readlines(fname)
@@ -56,6 +24,7 @@ def csv_lst(fname):
         convert(data)
         output.append(data)
     return output
+
 
 dd = csv_lst('titanic.csv')
 
