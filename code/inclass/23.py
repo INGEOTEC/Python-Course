@@ -4,6 +4,27 @@ def replace_vars(var, rhs):
     >>> replace_vars(d, "12 + a * 2")
     '12 + 23.3 * 2'
     """
+    rhs = rhs.split()
+    for i, x in enumerate(rhs):
+        if x in var:
+            rhs[i] = str(var[x])
+    return " ".join(rhs)
+
+
+def split_lhs_rhs(expr):
+    """Split the equation into left and right hand side.
+    >>> split_lhs_rhs(" 12 + a ")
+    (None, '12 + a')
+    >>> split_lhs_rhs(" c = 12 + a ")
+    ('c', '12 + a')
+    """
+    expr = [x.strip() for x in expr.split("=")]
+    if len(expr) == 1:
+        rhs = expr[0]
+        output = None
+    else:
+        output, rhs = expr
+    return output, rhs
 
 
 def eval_expr(var, expr):
@@ -15,15 +36,13 @@ def eval_expr(var, expr):
     >>> d
     {'a': 32, 'c': 33}
     """
-
-
-def split_lhs_rhs(expr):
-    """Split the equation into left and right hand side.
-    >>> split_lhs_rhs(" 12 + a ")
-    (None, '12 + a')
-    >>> split_lhs_rhs(" c = 12 + a ")
-    ('c', '12 + a')
-    """
+    output, rhs = split_lhs_rhs(expr)
+    expr = replace_vars(var, rhs)
+    val = eval(expr)
+    if output is None:
+        return val
+    var[output] = val
+    return None
 
 
 def eval_command(var, expr):
